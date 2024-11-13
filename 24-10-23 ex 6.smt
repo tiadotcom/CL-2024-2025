@@ -40,30 +40,29 @@
 (declare-const E3 Bool)
 (assert (xor3 E1 E2 E3))
 
-; (1) A wants to share the room with either B or E;
-(assert (=> A1 (xor B1 E1)))
-(assert (=> A2 (xor B2 E2)))
-(assert (=> A3 (xor B3 E3)))
+; All rooms are occupied by two people at most
+(assert ((_ at-most 2) A1 B1 C1 D1 E1))
+(assert ((_ at-most 2) A2 B2 C2 D2 E2))
+(assert ((_ at-most 2) A3 B3 C3 D3 E3))
 
-; (2) B wants to share the room with either A or C;
-(assert (=> B1 (xor A1 C1)))
-(assert (=> B2 (xor A2 C2)))
-(assert (=> B3 (xor A3 C3)))
+; A with  B or E
+(assert (or (and A1 B1) (and A2 B2) (and A3 B3) (and A1 E1) (and A2 E2) (and A3 E3)))
 
-; (3) C wants to share the room with either B or D;
-(assert (=> C1 (xor B1 D1)))
-(assert (=> C2 (xor B2 D2)))
-(assert (=> C3 (xor B3 D3)))
+; B with  A or C
+(assert (or (and A1 B1) (and A2 B2) (and A3 B3) (and B1 C1) (and B2 C2) (and B3 C3)))
 
-; (4) D wants to share the room with either C or E;
-(assert (=> D1 (xor C1 E1)))
-(assert (=> D2 (xor C2 E2)))
-(assert (=> D3 (xor C3 E3)))
+; C with  B or D
+(assert (or (and C1 D1) (and C2 D2) (and C3 D3) (and B1 C1) (and B2 C2) (and B3 C3)))
 
-; (5) E wants to share the room with either D or A.
-(assert (=> E1 (xor D1 A1)))
-(assert (=> E2 (xor D2 A2)))
-(assert (=> E3 (xor D3 A3)))
+; D with  C or E
+(assert (or (and C1 D1) (and C2 D2) (and C3 D3) (and D1 E1) (and D2 E2) (and D3 E3)))
+
+; E with  D or A
+(assert (or (and E1 A1) (and E2 A2) (and E3 A3) (and D1 E1) (and D2 E2) (and D3 E3)))
 
 (check-sat)
+
+;to regain consistency remove one constraint from the above list, then ask for a model
+;(get-model)
+
 
