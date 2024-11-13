@@ -5,7 +5,7 @@
 (declare-const q Bool)
 (declare-const r Bool)
 
-(assert (not (=> (and (=> p q) r) (and (=> p q) (=> p r)))))
+(assert (not (=> (=> p (and q r)) (and (=> p q) (=> p r)))))
 
 (check-sat)
 ; If we get unsta the formula is a tautology
