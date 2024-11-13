@@ -27,22 +27,27 @@
 (assert (xor3 p9 p10 p11))
 (assert (xor3 l9 l10 l11))
 
-(assert (xor3 c9 h9 a9))
-(assert (xor3 c10 h10 a10))
-(assert (xor3 c11 h11 a11))
+;;student x desiderata
+(assert (not (and c9 h9)))
+(assert (not (and c9 a9)))
+(assert (not (and h9 a9)))
+(assert (not (and c10 h10)))
+(assert (not (and c10 a10)))
+(assert (not (and h10 a10)))
+(assert (not (and c11 h11)))
+(assert (not (and c11 a11)))
+(assert (not (and h11 a11)))
 
-(assert ((_ at-most 2) 
-        (xor l9 p9 ) 
-        (xor l10 p10) 
-        (xor l11 p11)
-))
+;student y desiderata
+(assert (not (and l9 p9)))
+(assert (not (and l10 p10)))
+(assert (not (and l11 p11)))
 
-(assert (xor c10 h10))
-(assert (xor c11 h11))
-; (assert (not c9))
-; (assert (not h9))
+;student z desiderata
+(assert (not c9))
+(assert (not h9))
+(assert (not (and c10 h10)))
+(assert (not (and c11 h11)))
 
 (check-sat)
 (get-model)
-
-; model:
