@@ -20,7 +20,7 @@
 (declare-const a Bool)
 
 (assert (=> p (and m j)))
-(assert (=> j (not (or t a))))
+(assert (=> j (and (not t) (not a))))
 (assert (not (=> (or t a) (not p)))) ; negation of the conclusion
 
 (check-sat)
